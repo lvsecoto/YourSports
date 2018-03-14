@@ -1,11 +1,14 @@
 package com.yjy.your.sports;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,10 +76,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     count++;
                     mTextView.setText("" + count);
                     playSound();
+
+                    vibrate();
                 }
 
                 break;
         }
+    }
+
+    private void vibrate() {
+        ((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(100);
     }
 
     private void playSound() {
