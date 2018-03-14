@@ -7,15 +7,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.os.VibrationEffect;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
-
-import java.util.Formatter;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private static final String TAG = MainActivity.class.getName();
