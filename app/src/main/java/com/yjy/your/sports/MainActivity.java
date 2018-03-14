@@ -4,6 +4,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager mSm;
 
     private Sensor mSensor;
+    private SoundPool mSoundPool;
+    private int mSoundId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         assert mSm != null;
         mSensor = mSm.getDefaultSensor(Sensor.TYPE_GRAVITY);
 
+        initSound();
+    }
+
+    private void initSound() {
+        mSoundPool = new SoundPool(2, AudioManager.STREAM_NOTIFICATION, 0);
+        mSoundId = mSoundPool.load(this, R.raw.elara, 0);
     }
 
     @Override
@@ -62,10 +72,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     mStatus = STATUS_READY;
                     count++;
                     mTextView.setText("" + count);
+                    playSound();
                 }
 
                 break;
         }
+    }
+
+    private void playSound() {
+        mSoundPool.play(mSoundId, 1f, 1f, 0, 0, 1f);
     }
 
     @Override
