@@ -12,6 +12,11 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.yjy.your.sports.server.Server;
+import com.yjy.your.sports.server.YourSports;
+
+import io.reactivex.schedulers.Schedulers;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private static final String TAG = MainActivity.class.getName();
 
@@ -73,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     playSound();
 
                     vibrate();
+                    addSitup();
                 }
 
                 break;
@@ -85,6 +91,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void playSound() {
         mSoundPool.play(mSoundId, 1f, 1f, 0, 0, 1f);
+    }
+
+    private void addSitup() {
+        Server server = YourSports.getInstance().getServer();
+        server.addSitup()
+                .subscribeOn(Schedulers.io())
+                .subscribe();
     }
 
     @Override
